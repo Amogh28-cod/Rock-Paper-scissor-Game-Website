@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Papper Scissor with computer</title>
+    <style>
+        *{
+    margin:0px;
+    padding:0px;
+}
+
+h1{
+    background-color: #081b31;
+    color:#B2FFFF;
+    text-align:center;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img{
+    height: 180px;
+    width:180px;
+}
+
+.choice{
+    height: 220px;
+width: 220px;
+/* display:flex; */
+}
+
+.choices{
+    display:flex;
+    justify-content: center;
+    gap:20px;
+    margin-top: 5rem;
+}
+
+.choice:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.score{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    margin-top: 10px;
+    gap: 5rem;
+}
+
+#user-score, #opponent-score{
+    font-size: 3rem;
+    align-items: center;
+    
+}
+
+.result{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#msg{
+    background-color: #1B2838;
+    color:white;
+    height: 2rem;
+  border-radius: 1rem;
+   display: inline;
+    font-size: 25px;
+    padding: 10px;
+    margin-top: 30px;
+}
+    </style>
+</head>
+<body>
+    
+
+<h1>Rock Paper Scissor </h1>
+<div class="choices">
+<div class="choice" id="rock">
+    <image src="vqnosoak.png"></image>
+</div>
+
+
+<div class="choice" id="paper">
+    <image src="g7h78oyk.png"></image>
+</div>
+    
+<div class="choice" id="scissor">
+    <image src="4e1hs0uh.png"></image>
+</div>
+</div>
+
+<div class="score">
+    <div class="score-self">
+        <p id="user-score">0</p>
+        <p>Your Score</p>` 
+    </div>
+
+    <div class="score-com">
+        <p id="opponent-score">0</p>
+        <p>Opponent Score</p>
+    </div>
+    
+</div>
+
+<div class="result">
+    <p id="msg">
+        Play Your Move
+    </p>
+</div>
+
+
+    <script>
+let userScore=0;
+let comScore=0;
+
+const choices=document.querySelectorAll(".choice");
+
+const result=document.querySelector("#msg");
+
+const comScorepara=document.querySelector("#opponent-score");
+const usrScorepara=document.querySelector("#user-score");
+
+const computerchoice = ()=>{
+    let opt=["rock", "Paper", "scissor"];
+   const gen= Math.floor(Math.random ()*3);
+   return opt[gen];
+}
+
+const showWinner=(usrWin , userchoice , comGen)=>{
+    if (usrWin){
+      comScore++;
+comScorepara.innerText=comScore;
+console.log(userchoice)
+        msg.innerText =`You loose! opponent ${comGen} beats Your ${userchoice}`  ;
+        msg.style.backgroundColor="red";
+    }else{
+    userScore++;
+    usrScorepara.innerText=userScore;
+        msg.innerText =`You win! Your ${userchoice}  beats opponent ${comGen}`;
+        msg.style.backgroundColor="green";
+    }
+}
+
+const drawgame= ()=>{
+    console.log("game was draw");
+    msg.innerText="Game draw Play again"
+    msg.style.backgroundColor="#1B2838";
+}
+
+
+
+
+let playgame=(userchoice)=>{
+    console.log("userchoice is", userchoice)
+
+    const comGen=computerchoice();
+
+    console.log("Opponent choice=", comGen);
+
+    if (userchoice===comGen){
+drawgame();
+    }else{
+        let usrWin=true;
+        if(userchoice==="rock"){
+          usrWin =  comGen==="paper"? true:false;
+        }else if(userchoice==="paper"){
+            usrWin = comGen==="scissor"? true:false;
+
+        }else{
+            usrWin = comGen==="rock"? true:false;
+        }
+        showWinner(usrWin , userchoice , comGen);
+    }
+};
+
+choices.forEach(choice => {
+    choice.addEventListener("click",() =>{
+const userchoice= choice.getAttribute("id");
+playgame(userchoice);
+
+    })
+});
+    </script>
+
+
+</body>
+</html>
